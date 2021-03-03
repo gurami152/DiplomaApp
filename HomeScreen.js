@@ -25,6 +25,7 @@ class HomeScreen extends React.Component {
             .then((response) => response.json())
             .then((responseData) => {
                 console.log(responseData);
+                this.props.navigation.navigate('Item');
                 // this.props.navigation.navigate('Home');
                 // this._onValueChange(this.state.STORAGE_KEY, responseData.accessToken);
             })
