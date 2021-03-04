@@ -9,7 +9,7 @@ const Stack = createStackNavigator()
 
 const Navigator = props => {
     return(
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Item">
             <Stack.Screen
                 name="Login"
                 component={LoginScreen}
