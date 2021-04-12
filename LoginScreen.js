@@ -2,6 +2,7 @@
 import {ActivityIndicator, Button, FlatList, StyleSheet, Text, View, TextInput, TouchableOpacity} from "react-native";
 let React = require('react');
 import AsyncStorage from '@react-native-community/async-storage'
+import Icon from "react-native-vector-icons/AntDesign";
 
 class LoginScreen extends React.Component {
 
@@ -10,8 +11,10 @@ class LoginScreen extends React.Component {
 
     this.state = {
         username: '',
+        email: '',
         password: '',
         STORAGE_KEY : 'id_token',
+        error: false,
         }
     }
 
@@ -24,30 +27,31 @@ class LoginScreen extends React.Component {
     }
 
     apiCall() {
+        let self = this;
         // if validation fails, value will be null
-        fetch("http://192.168.1.240:8080/api/auth/signin", {
+        fetch("http://192.168.1.151:8080/api/auth/signin", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: this.state.username,
-                email: 'gurami152@gmail.com',
+                email: this.state.email,
                 password: this.state.password,
             })
         })
-            .then(function(response) {
-                if (!response.ok) {
-                    // throw new Error("HTTP status " + response.status);
-                }
-                return response.json();
-            })
-            .then((responseData) => {
-                this.props.navigation.navigate('Home');
-                this._onValueChange(this.state.STORAGE_KEY, responseData.accessToken);
-            })
-            .done();
+            .then(res => res.json())
+            .then(res => {
+                self.props.navigation.navigate('Home', {
+                                    name: res.username,
+                    role: res.roles,
+                    }
+                );
+                self._onValueChange(self.state.STORAGE_KEY, res.accessToken);
+                })
+            .catch ((error) => {
+                console.log(error);
+            });
     }
 
     render() {
@@ -56,16 +60,19 @@ class LoginScreen extends React.Component {
                 <Text style={styles.text}>Логін</Text>
                 <TextInput style={styles.textInput}
                            autoCapitalize="none"
-                           onChangeText={(text) => this.setState({username:text})}
+                           onChangeText={(text) => this.setState({email:text})}
                 />
                 <Text style={styles.text}>Пароль</Text>
                 <TextInput secureTextEntry={true} style={styles.textInput}
                            autoCapitalize="none"
                            onChangeText={(text) => this.setState({password:text})}
                 />
+                {this.state.error &&
+                    <Text style={styles.errorMessage}>Неправильний логін чи пароль</Text>
+                }
                 <TouchableOpacity style={styles.button}
-                    title="Learn More" onPress={() => this.apiCall()}>
-                    <Text style={styles.input} >Авторизуватися</Text>
+                                  title="Learn More" onPress={() => this.apiCall()}>
+                    <Text style={styles.input}>Авторизуватися</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -87,6 +94,9 @@ let styles = StyleSheet.create({
         borderColor:'#181616',
         borderWidth: 1,
         fontSize: 15,
+    },
+    errorMessage: {
+        borderColor:'#ba0707',
     },
     button: {
         marginTop: 20,

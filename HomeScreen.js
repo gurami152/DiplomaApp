@@ -15,7 +15,7 @@ class HomeScreen extends React.Component {
     getResponsibleUsers= async () => {
         const value = await AsyncStorage.getItem(this.state.STORAGE_KEY);
         console.log(value);
-        fetch("http://192.168.1.240:8080/api/test/user", {
+        fetch("http://192.168.1.151:8080/api/test/user", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -24,10 +24,7 @@ class HomeScreen extends React.Component {
         })
             .then((response) => response.json())
             .then((responseData) => {
-                console.log(responseData);
                 this.props.navigation.navigate('Item');
-                // this.props.navigation.navigate('Home');
-                // this._onValueChange(this.state.STORAGE_KEY, responseData.accessToken);
             })
             .done();
 
@@ -36,18 +33,25 @@ class HomeScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text >{this.props.route.params.role}</Text>
+                <Text>{this.props.route.params.name}</Text>
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.input}>Обладнання</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    { this.props.route.params.role === 'admin' &&
+                        <TouchableOpacity style={styles.button} >
                         <Text style={styles.input}>Типи обладнання</Text>
-                    </TouchableOpacity>
+                        </TouchableOpacity>
+                    }
+
                 </View>
                 <View style={styles.row}>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.input}>Користувачі</Text>
-                    </TouchableOpacity>
+                    {this.props.route.params.role === 'admin' &&
+                        <TouchableOpacity style={styles.button}>
+                            <Text style={styles.input}>Користувачі</Text>
+                        </TouchableOpacity>
+                    }
                     <TouchableOpacity style={styles.button} onPress={() => this.getResponsibleUsers()}>
                         <Text style={styles.input}>Відповідальна особа</Text>
                     </TouchableOpacity>
