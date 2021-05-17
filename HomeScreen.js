@@ -15,7 +15,7 @@ class HomeScreen extends React.Component {
     getResponsibleUsers= async () => {
         const value = await AsyncStorage.getItem(this.state.STORAGE_KEY);
         console.log(value);
-        fetch("http://192.168.1.151:8080/api/test/user", {
+        fetch("http://192.168.1.198:8081/api/test/user", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',

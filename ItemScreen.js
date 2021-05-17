@@ -1,20 +1,48 @@
 // import axios from "axios";
-import {StyleSheet, View, Text, TouchableOpacity, Animated} from "react-native";
+import {StyleSheet, View, Text, FlatList,  TouchableOpacity, Animated} from "react-native";
 let React = require('react');
 import Icon from 'react-native-vector-icons/AntDesign';
+import AsyncStorage from "@react-native-community/async-storage";
 
 
 var isHidden = true;
 
 class ItemScreen extends React.Component {
 
+
     constructor(props){
         super(props)
 
         this.state = {
+            STORAGE_KEY : 'id_token',
             showTheSettings: false,
             bounceValue: new Animated.Value(100),
+            financial: {},
+            isLoading: false,
         }
+    }
+
+    componentDidMount() {
+        this.loadData();
+    }
+
+    loadData = () => {
+        this.setState({ isLoading: true})
+        const value = AsyncStorage.getItem(this.state.STORAGE_KEY);
+        fetch("http://192.168.1.198:8081/api/financial/all", {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': value,
+            }
+        })
+            .then((response) => response.json())
+            .then((responseData) => {
+                console.log(responseData)
+                this.setState({
+                    financial : responseData
+                });
+            }).finally(() => this.setState({ isLoading: false}))
     }
 
     settingsShow(){
@@ -40,13 +68,26 @@ class ItemScreen extends React.Component {
         });
     }
 
+    renderRow = ({item}) => {
+        return (
+            <View style={{padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc'}}>
+                <TouchableOpacity>
+                    <Text>{item.name}</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
     render() {
         return (
             <View style={styles.main}>
                 <View style={styles.container}>
-                    <Text>
-                        asdasdasdasdasdasdasdadadasd sad as dasd as das a asda sda ada sad as dasd a das dasd asd asd as fgas
-                    </Text>
+                    <FlatList
+                        data={this.state.financial}
+                        renderItem={this.renderRow}
+                        refreshing={this.state.isLoading}
+                        onRefresh={this.loadData}
+                    />
                 </View>
 
                 { this.state.showTheSettings &&
