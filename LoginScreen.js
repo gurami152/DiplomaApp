@@ -29,7 +29,7 @@ class LoginScreen extends React.Component {
     apiCall() {
         let self = this;
         // if validation fails, value will be null
-        fetch("http://192.168.1.198:8081/api/auth/signin", {
+        fetch("http://192.168.1.101:8081/api/auth/signin", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

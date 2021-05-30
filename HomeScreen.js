@@ -13,20 +13,20 @@ class HomeScreen extends React.Component {
     }
 
     getResponsibleUsers= async () => {
-        const value = await AsyncStorage.getItem(this.state.STORAGE_KEY);
-        console.log(value);
-        fetch("http://192.168.1.198:8081/api/test/user", {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                'x-access-token': value,
-            }
-        })
-            .then((response) => response.json())
-            .then((responseData) => {
-                this.props.navigation.navigate('Item');
-            })
-            .done();
+        // const value = await AsyncStorage.getItem(this.state.STORAGE_KEY);
+        // console.log(value);
+        // fetch("http://192.168.1.101:8081/api/test/user", {
+        //     method: "GET",
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'x-access-token': value,
+        //     }
+        // })
+        //     .then((response) => response.json())
+        //     .then((responseData) => {
+                this.props.navigation.navigate('List');
+            // })
+            // .done();
 
     }
 

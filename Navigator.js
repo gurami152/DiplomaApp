@@ -3,6 +3,7 @@ import React from 'react'
 import LoginScreen from "./LoginScreen";
 import HomeScreen from "./HomeScreen";
 import ItemScreen from "./ItemScreen";
+import ListScreen from "./ListScreen";
 
 
 const Stack = createStackNavigator()
@@ -19,6 +20,11 @@ const Navigator = props => {
                 name="Home"
                 component={HomeScreen}
                 options={{title: "Home Page"}}
+            />
+            <Stack.Screen
+                name="List"
+                component={ListScreen}
+                options={{title: "List Page"}}
             />
             <Stack.Screen
                 name="Item"

@@ -3,9 +3,12 @@ import {StyleSheet, View, Text, FlatList,  TouchableOpacity, Animated} from "rea
 let React = require('react');
 import Icon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from "@react-native-community/async-storage";
+import { BottomSheet, ListItem } from 'react-native-elements';
 
 
-var isHidden = true;
+let isHidden = true;
+
+
 
 class ItemScreen extends React.Component {
 
@@ -14,11 +17,25 @@ class ItemScreen extends React.Component {
         super(props)
 
         this.state = {
+            bottomMenu: false,
             STORAGE_KEY : 'id_token',
             showTheSettings: false,
             bounceValue: new Animated.Value(100),
             financial: {},
             isLoading: false,
+            list : [
+                { title: 'Повернутись назад',
+                    onPress: () =>{
+                        this.deleteBottomSheetShow();
+                        this.settingsShow();
+                    },
+                },
+                {   title: 'Видалити',
+                    containerStyle: { backgroundColor: 'red' },
+                    titleStyle: { color: 'white' },
+                    onPress: () =>(this.deleteBottomSheetShow()),
+                },
+            ],
         }
     }
 
@@ -29,7 +46,7 @@ class ItemScreen extends React.Component {
     loadData = () => {
         this.setState({ isLoading: true})
         const value = AsyncStorage.getItem(this.state.STORAGE_KEY);
-        fetch("http://192.168.1.198:8081/api/financial/all", {
+        fetch("http://192.168.1.101:8081/api/financial/all", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -45,8 +62,14 @@ class ItemScreen extends React.Component {
             }).finally(() => this.setState({ isLoading: false}))
     }
 
+    deleteBottomSheetShow() {
+        this.setState({
+            bottomMenu : !this.state.bottomMenu
+        });
+    }
+
     settingsShow(){
-        var toValue = 100;
+        let toValue = 100;
         if(isHidden) {
             toValue = 0;
         }
@@ -68,26 +91,39 @@ class ItemScreen extends React.Component {
         });
     }
 
-    renderRow = ({item}) => {
-        return (
-            <View style={{padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc'}}>
-                <TouchableOpacity>
-                    <Text>{item.name}</Text>
-                </TouchableOpacity>
-            </View>
-        )
-    }
+    // renderRow = ({item}) => {
+    //     return (
+    //         <View style={{padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc'}}>
+    //             <TouchableOpacity>
+    //                 <Text>{item.name}</Text>
+    //             </TouchableOpacity>
+    //         </View>
+    //     )
+    // }
 
     render() {
         return (
             <View style={styles.main}>
                 <View style={styles.container}>
-                    <FlatList
-                        data={this.state.financial}
-                        renderItem={this.renderRow}
-                        refreshing={this.state.isLoading}
-                        onRefresh={this.loadData}
-                    />
+                    <Text>{this.props.route.params.item.name}</Text>
+                    <BottomSheet
+                        isVisible={this.state.bottomMenu}
+                        containerStyle={{ backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)' }}
+                    >
+                        {this.state.list.map((l, i) => (
+                            <ListItem key={i} containerStyle={l.containerStyle} onPress={l.onPress}>
+                                <ListItem.Content>
+                                    <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+                                </ListItem.Content>
+                            </ListItem>
+                        ))}
+                    </BottomSheet>
+                    {/*<FlatList*/}
+                    {/*    data={this.state.financial}*/}
+                    {/*    renderItem={this.renderRow}*/}
+                    {/*    refreshing={this.state.isLoading}*/}
+                    {/*    onRefresh={this.loadData}*/}
+                    {/*/>*/}
                 </View>
 
                 { this.state.showTheSettings &&
@@ -96,7 +132,11 @@ class ItemScreen extends React.Component {
                         {transform: [{translateX: this.state.bounceValue}]}]}
                 >
                     <TouchableOpacity style={styles.button}
-                                      title="Learn More">
+                                      title="Learn More" onPress={() => {
+                                          this.settingsShow();
+                                          this.deleteBottomSheetShow();}
+                                      }>
+
                         <Icon
                             name='delete'
                             size={25}
@@ -134,6 +174,7 @@ class ItemScreen extends React.Component {
         )
     }
 }
+
 
 let styles = StyleSheet.create({
     main: {
