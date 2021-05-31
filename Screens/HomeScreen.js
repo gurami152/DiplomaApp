@@ -24,7 +24,7 @@ class HomeScreen extends React.Component {
         // })
         //     .then((response) => response.json())
         //     .then((responseData) => {
-                this.props.navigation.navigate('List');
+
             // })
             // .done();
 
@@ -33,27 +33,49 @@ class HomeScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text >{this.props.route.params.role}</Text>
-                <Text>{this.props.route.params.name}</Text>
+                {/*<Text >{this.props.route.params.role}</Text>*/}
+                {/*<Text>{this.props.route.params.name}</Text>*/}
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.input}>Обладнання</Text>
                     </TouchableOpacity>
-                    { this.props.route.params.role === 'admin' &&
+                    {/*{ this.props.route.params.role === 'admin' &&*/}
                         <TouchableOpacity style={styles.button} >
                         <Text style={styles.input}>Типи обладнання</Text>
                         </TouchableOpacity>
-                    }
+                    // }
 
                 </View>
                 <View style={styles.row}>
-                    {this.props.route.params.role === 'admin' &&
+                    {/*{this.props.route.params.role === 'admin' &&*/}
                         <TouchableOpacity style={styles.button}>
                             <Text style={styles.input}>Користувачі</Text>
                         </TouchableOpacity>
-                    }
-                    <TouchableOpacity style={styles.button} onPress={() => this.getResponsibleUsers()}>
-                        <Text style={styles.input}>Відповідальна особа</Text>
+                    {/*}*/}
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
+                        <Text style={styles.input}>Відповідальні особа</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.row}>
+                    {/*{this.props.route.params.role === 'admin' &&*/}
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.input}>Користувачі</Text>
+                    </TouchableOpacity>
+                    {/*}*/}
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
+                        <Text style={styles.input}>Відповідальні особа</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.row}>
+                    {/*{this.props.route.params.role === 'admin' &&*/}
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.input}>Користувачі</Text>
+                    </TouchableOpacity>
+                    {/*}*/}
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
+                        <Text style={styles.input}>Відповідальні особа</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -76,8 +98,9 @@ let styles = StyleSheet.create({
     button: {
         margin: 10,
         width: 150,
-        height: 150,
+        height: 90,
         alignItems: "center",
+        justifyContent: "center",
         backgroundColor: "#37399a",
         padding: 5,
         borderRadius: 20,

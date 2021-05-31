@@ -2,8 +2,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import LoginScreen from "./LoginScreen";
 import HomeScreen from "./HomeScreen";
-import ItemScreen from "./ItemScreen";
-import ListScreen from "./ListScreen";
+import ItemScreen from "./ItemsScreens/ItemScreen";
+import ListScreen from "./ListsScreen/ListScreen";
 
 
 const Stack = createStackNavigator()
@@ -14,24 +14,24 @@ const Navigator = props => {
             <Stack.Screen
                 name="Login"
                 component={LoginScreen}
-                options={{title: "Login Page"}}
+                options={{title: "Вхід в систему"}}
             />
             <Stack.Screen
                 name="Home"
                 component={HomeScreen}
-                options={{title: "Home Page"}}
+                options={{title: "Головна сторінка"}}
             />
             <Stack.Screen
                 name="List"
                 component={ListScreen}
-                options={{title: "List Page"}}
+                options={{title: "Перелік відповідальних осіб"}}
             />
             <Stack.Screen
                 name="Item"
                 component={ItemScreen}
-                options={{title: "Item Page"}}
+                options={{title: "Відповідальна особа"}}
             />
         </Stack.Navigator>
-    )
-}
+    );
+};
 export default Navigator
