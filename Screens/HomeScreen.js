@@ -43,7 +43,7 @@ class HomeScreen extends React.Component {
                         <TouchableOpacity style={styles.button} >
                         <Text style={styles.input}>Типи обладнання</Text>
                         </TouchableOpacity>
-                    // }
+                     {/*}*/}
 
                 </View>
                 <View style={styles.row}>
