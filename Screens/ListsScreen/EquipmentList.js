@@ -21,7 +21,7 @@ class EquipmentList extends React.Component {
     loadData = () => {
         this.setState({isLoading: true})
         const value = AsyncStorage.getItem(this.state.STORAGE_KEY);
-        fetch("http://192.168.1.101:8081/api/financial/all", {
+        fetch("http://192.168.1.101:8081/api/equipment/all", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -46,6 +46,8 @@ class EquipmentList extends React.Component {
                     });
                 }}>
                     <Text>{item.inventoryNumber}</Text>
+                    <Text>{item.typeOfEquipment_id}</Text>
+                    <Text>{item.status_id}</Text>
                 </TouchableOpacity>
             </View>
         )

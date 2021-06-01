@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 let React = require('react');
 
-class ListScreen extends React.Component {
+class TypeOfEquipementList extends React.Component {
 
     constructor(props) {
         super(props)
@@ -21,7 +21,7 @@ class ListScreen extends React.Component {
     loadData = () => {
         this.setState({isLoading: true})
         const value = AsyncStorage.getItem(this.state.STORAGE_KEY);
-        fetch("http://192.168.1.101:8081/api/financial/all", {
+        fetch("http://192.168.1.101:8081/api/typeOfEquipment/all", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +46,6 @@ class ListScreen extends React.Component {
                     });
                 }}>
                     <Text>{item.name}</Text>
-                    <Text>{item.departmentId}</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -122,4 +121,4 @@ let styles = StyleSheet.create({
     }
 });
 
-export default ListScreen
+export default TypeOfEquipementList

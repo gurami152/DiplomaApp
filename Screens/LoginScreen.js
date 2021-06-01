@@ -43,8 +43,8 @@ class LoginScreen extends React.Component {
             .then(res => res.json())
             .then(res => {
                 self.props.navigation.navigate('Home', {
-                                    name: res.username,
-                    role: res.roles,
+                        name: res.username,
+                        role: res.roles,
                     }
                 );
                 self._onValueChange(self.state.STORAGE_KEY, res.accessToken);

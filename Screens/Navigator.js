@@ -5,6 +5,9 @@ import HomeScreen from "./HomeScreen";
 import ItemScreen from "./ItemsScreens/ItemScreen";
 import ListScreen from "./ListsScreen/ListScreen";
 import EquipmentList from "./ListsScreen/EquipmentList";
+import TypeOfEquipmentList from "./ListsScreen/TypeOfEquipment";
+import TypeOfPartOfEquipmentList from "./ListsScreen/TypeOfPartOfEquipmentList";
+import UsersList from "./ListsScreen/UsersList";
 
 
 const Stack = createStackNavigator()
@@ -36,6 +39,21 @@ const Navigator = props => {
                 name="EquipmentList"
                 component={EquipmentList}
                 options={{title: "Перелік обладнання"}}
+            />
+            <Stack.Screen
+                name="TypeOfEquipmentList"
+                component={TypeOfEquipmentList}
+                options={{title: "Перелік типів обладнання"}}
+            />
+            <Stack.Screen
+                name="TypeOfPartOfEquipmentList"
+                component={TypeOfPartOfEquipmentList}
+                options={{title: "Перелік типів запчастин"}}
+            />
+            <Stack.Screen
+                name="UsersList"
+                component={UsersList}
+                options={{title: "Перелік користувачів"}}
             />
         </Stack.Navigator>
     );
