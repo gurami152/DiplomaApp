@@ -12,24 +12,6 @@ class HomeScreen extends React.Component {
         }
     }
 
-    getResponsibleUsers= async () => {
-        // const value = await AsyncStorage.getItem(this.state.STORAGE_KEY);
-        // console.log(value);
-        // fetch("http://192.168.1.101:8081/api/test/user", {
-        //     method: "GET",
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'x-access-token': value,
-        //     }
-        // })
-        //     .then((response) => response.json())
-        //     .then((responseData) => {
-
-            // })
-            // .done();
-
-    }
-
     render() {
         return (
             <View style={styles.container}>
@@ -37,7 +19,7 @@ class HomeScreen extends React.Component {
                 {/*<Text>{this.props.route.params.name}</Text>*/}
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.input}>Обладнання</Text>
+                        <Text style={styles.input} onPress={() => this.props.navigation.navigate('EquipmentList')}>Обладнання</Text>
                     </TouchableOpacity>
                     {/*{ this.props.route.params.role === 'admin' &&*/}
                         <TouchableOpacity style={styles.button} >
@@ -49,34 +31,35 @@ class HomeScreen extends React.Component {
                 <View style={styles.row}>
                     {/*{this.props.route.params.role === 'admin' &&*/}
                         <TouchableOpacity style={styles.button}>
-                            <Text style={styles.input}>Користувачі</Text>
+                            <Text style={styles.input}>Запчастина</Text>
                         </TouchableOpacity>
                     {/*}*/}
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
-                        <Text style={styles.input}>Відповідальні особа</Text>
+                        <Text style={styles.input}>Тип запчастини</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.row}>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
+                        <Text style={styles.input}>Відповідальні особа</Text>
+                    </TouchableOpacity>
+                    {/*{this.props.route.params.role === 'admin' &&*/}
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.input}>Підрозділ</Text>
+                    </TouchableOpacity>
+                    {/*}*/}
+                </View>
+
+                <View style={styles.row}>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
+                        <Text style={styles.input}>Статус обладання</Text>
+                    </TouchableOpacity>
                     {/*{this.props.route.params.role === 'admin' &&*/}
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.input}>Користувачі</Text>
                     </TouchableOpacity>
                     {/*}*/}
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
-                        <Text style={styles.input}>Відповідальні особа</Text>
-                    </TouchableOpacity>
-                </View>
 
-                <View style={styles.row}>
-                    {/*{this.props.route.params.role === 'admin' &&*/}
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.input}>Користувачі</Text>
-                    </TouchableOpacity>
-                    {/*}*/}
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
-                        <Text style={styles.input}>Відповідальні особа</Text>
-                    </TouchableOpacity>
                 </View>
 
             </View>

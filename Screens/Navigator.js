@@ -4,6 +4,7 @@ import LoginScreen from "./LoginScreen";
 import HomeScreen from "./HomeScreen";
 import ItemScreen from "./ItemsScreens/ItemScreen";
 import ListScreen from "./ListsScreen/ListScreen";
+import EquipmentList from "./ListsScreen/EquipmentList";
 
 
 const Stack = createStackNavigator()
@@ -30,6 +31,11 @@ const Navigator = props => {
                 name="Item"
                 component={ItemScreen}
                 options={{title: "Відповідальна особа"}}
+            />
+            <Stack.Screen
+                name="EquipmentList"
+                component={EquipmentList}
+                options={{title: "Перелік обладнання"}}
             />
         </Stack.Navigator>
     );
