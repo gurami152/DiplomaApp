@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import {Animated, Modal, Picker, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import Icon from 'react-native-vector-icons/AntDesign';
 import {BottomSheet, ListItem} from 'react-native-elements';
@@ -17,10 +17,9 @@ class ItemScreen extends React.Component {
         super(props)
 
         this.state = {
-            selectedValue: null,
             values: null,
             fio: this.props.route.params.item.name,
-            // department_id: this.props.route.params.item.department_id,
+            department_id: this.props.route.params.item.department_id,
             bottomMenu: false,
             STORAGE_KEY: 'id_token',
             showTheSettings: false,
@@ -58,6 +57,21 @@ class ItemScreen extends React.Component {
     modalShow() {
         this.setState({
             modalVisible: !this.state.modalVisible
+        });
+    }
+
+    addFinancialResponsiblePerson() {
+        let self = this;
+        axios({
+            method: 'post',
+            url: '/user/12345',
+            data: {
+                name: self.state.fio,
+                department_id: self.state.department_id,
+            }
+        }).then(function (response) {
+            self.modalShow();
+            self.loadData();
         });
     }
 
@@ -119,9 +133,9 @@ class ItemScreen extends React.Component {
                         />
                         <Text style={styles.text}>Підрозділ</Text>
                         <Picker
-                            selectedValue={this.state.selectedValue}
+                            selectedValue={this.state.department_id}
                             style={{height: 50, width: 150}}
-                            onValueChange={(itemValue, itemIndex) => this.setState({selectedValue: itemValue})}
+                            onValueChange={(itemValue, itemIndex) => this.setState({department_id: itemValue})}
                         >
                             {this.state.values.map((item) => (
                                 <Picker.Item label={item.name} value={item.id} key={item.id}/>
@@ -139,7 +153,7 @@ class ItemScreen extends React.Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.floatingButtonDone}
                                           title="Learn More"
-                                          onPress={() => this.modalShow()}
+                                          onPress={() => this.addFinancialResponsiblePerson()}
                         >
                             <Icon
                                 name='check'
