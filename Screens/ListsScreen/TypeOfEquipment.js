@@ -21,7 +21,7 @@ class TypeOfEquipementList extends React.Component {
     loadData = () => {
         this.setState({isLoading: true})
         const value = AsyncStorage.getItem(this.state.STORAGE_KEY);
-        fetch("http://192.168.1.101:8081/api/typeOfEquipment/all", {
+        fetch("http://192.168.1.101:3000/api/typeOfEquipment/all", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
