@@ -19,7 +19,7 @@ class ItemScreen extends React.Component {
         this.state = {
             values: null,
             fio: this.props.route.params.item.name,
-            department_id: this.props.route.params.item.department_id,
+            department_id: this.props.route.params.item.department.id,
             bottomMenu: false,
             STORAGE_KEY: 'id_token',
             showTheSettings: false,
@@ -102,7 +102,7 @@ class ItemScreen extends React.Component {
     loadData() {
         this.setState({isLoading: true})
         const value = AsyncStorage.getItem(this.state.STORAGE_KEY);
-        fetch("http://192.168.1.101:8081/api/department/all", {
+        fetch("http://192.168.1.101:3000/api/department/all", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -165,7 +165,10 @@ class ItemScreen extends React.Component {
                 </Modal>
                 }
                 <View style={styles.container}>
-                    <Text>{this.props.route.params.item.name}</Text>
+                    <Text>ПІБ відповідальної особи</Text>
+                    <Text style={styles.text}>{this.props.route.params.item.name}</Text>
+                    <Text>Підрозділ</Text>
+                    <Text style={styles.text}>{this.props.route.params.item.department.name}</Text>
                     <BottomSheet
                         isVisible={this.state.bottomMenu}
                         containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)'}}

@@ -96,7 +96,7 @@ class ListScreen extends React.Component {
                     });
                 }}>
                     <Text>{item.name}</Text>
-                    <Text>{item.departmentId}</Text>
+                    <Text>{item.department.name}</Text>
                 </TouchableOpacity>
             </View>
         )

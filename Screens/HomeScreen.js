@@ -21,46 +21,47 @@ class HomeScreen extends React.Component {
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.input} onPress={() => this.props.navigation.navigate('EquipmentList')}>Обладнання</Text>
                     </TouchableOpacity>
-                    {/*{ this.props.route.params.role === 'admin' &&*/}
+                    { this.props.route.params.role === 'admin' &&
                         <TouchableOpacity style={styles.button} >
                         <Text style={styles.input}>Типи обладнання</Text>
                         </TouchableOpacity>
-                     {/*}*/}
+                     }
 
                 </View>
                 <View style={styles.row}>
-                    {/*{this.props.route.params.role === 'admin' &&*/}
                         <TouchableOpacity style={styles.button}>
                             <Text style={styles.input}>Запчастини</Text>
                         </TouchableOpacity>
-                    {/*}*/}
+                    {this.props.route.params.role === 'admin' &&
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
                         <Text style={styles.input}>Типи запчастин</Text>
                     </TouchableOpacity>
+                    }
                 </View>
 
+                {this.props.route.params.role === 'admin' &&
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
                         <Text style={styles.input}>Відповідальні особи</Text>
                     </TouchableOpacity>
-                    {/*{this.props.route.params.role === 'admin' &&*/}
+
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.input}>Підрозділи</Text>
                     </TouchableOpacity>
-                    {/*}*/}
-                </View>
 
+                </View>
+                }
+                {this.props.route.params.role === 'admin' &&
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
                         <Text style={styles.input}>Статуси обладання</Text>
                     </TouchableOpacity>
-                    {/*{this.props.route.params.role === 'admin' &&*/}
+
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.input}>Користувачі</Text>
                     </TouchableOpacity>
-                    {/*}*/}
-
                 </View>
+                }
 
             </View>
         )
