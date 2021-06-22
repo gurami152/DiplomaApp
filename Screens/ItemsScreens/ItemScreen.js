@@ -81,8 +81,6 @@ class ItemScreen extends React.Component {
         if (isHidden) {
             toValue = 0;
         }
-        //This will animate the transalteX of the subview between 0 & 100 depending on its current state
-        //100 comes from the style below, which is the height of the subview.
         Animated.spring(
             this.state.bounceValue,
             {
